@@ -2,6 +2,8 @@
 
 Sistema web desarrollado en **PHP >= 7.4** (compatible con PHP 8.x), **MySQL**, **PDO** y **Bootstrap 5.3.8** bajo arquitectura **MVC** sin frameworks.
 
+🌐 **Sitio de Prueba / Demo en vivo:** [https://gdb.sorac.dev/](https://gdb.sorac.dev/)
+
 ---
 
 ## Stack Tecnológico
