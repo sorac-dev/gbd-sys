@@ -52,8 +52,11 @@ class Pago
         return $stmt->fetchAll();
     }
 
-    /** Busca un pago por ID (incluye datos relacionados). */
-    public function findById(int $id): array|false
+    /**
+     * Busca un pago por ID (incluye datos relacionados).
+     * @return array|false
+     */
+    public function findById(int $id)
     {
         $stmt = $this->db->prepare(
             'SELECT p.*,
@@ -72,8 +75,11 @@ class Pago
         return $stmt->fetch();
     }
 
-    /** Busca por referencia. */
-    public function findByReferencia(string $ref): array|false
+    /**
+     * Busca por referencia.
+     * @return array|false
+     */
+    public function findByReferencia(string $ref)
     {
         $stmt = $this->db->prepare(
             'SELECT * FROM pagos WHERE referencia = :ref LIMIT 1'

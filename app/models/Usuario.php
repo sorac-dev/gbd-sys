@@ -30,8 +30,11 @@ class Usuario
         return $stmt->fetchAll();
     }
 
-    /** Busca un usuario por su ID. */
-    public function findById(int $id): array|false
+    /**
+     * Busca un usuario por su ID.
+     * @return array|false
+     */
+    public function findById(int $id)
     {
         $stmt = $this->db->prepare(
             'SELECT id, nombre, apellido, email, rol, telefono, activo, created_at, updated_at
@@ -43,8 +46,11 @@ class Usuario
         return $stmt->fetch();
     }
 
-    /** Busca un usuario por email (incluye password para autenticación). */
-    public function findByEmail(string $email): array|false
+    /**
+     * Busca un usuario por email (incluye password para autenticación).
+     * @return array|false
+     */
+    public function findByEmail(string $email)
     {
         $stmt = $this->db->prepare(
             'SELECT * FROM usuarios WHERE email = :email LIMIT 1'

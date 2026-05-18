@@ -1,6 +1,6 @@
-# GDB Pagos — Mini Sistema Web de Pago de Servicios
+# GDB Pagos — Sistema Web de Pago de Servicios
 
-Sistema web desarrollado en **PHP 8.1**, **MySQL**, **PDO** y **Bootstrap 5.3.8** bajo arquitectura **MVC** sin frameworks.
+Sistema web desarrollado en **PHP >= 7.4** (compatible con PHP 8.x), **MySQL**, **PDO** y **Bootstrap 5.3.8** bajo arquitectura **MVC** sin frameworks.
 
 ---
 
@@ -8,7 +8,7 @@ Sistema web desarrollado en **PHP 8.1**, **MySQL**, **PDO** y **Bootstrap 5.3.8*
 
 | Capa       | Tecnología                      |
 |------------|----------------------------------|
-| Backend    | PHP 8.1 · PDO · MySQL            |
+| Backend    | PHP >= 7.4 · PDO · MySQL         |
 | Frontend   | Bootstrap 5.3.8 · Vanilla CSS/JS |
 | Patrón     | MVC (sin frameworks)             |
 | BD         | MySQL / MariaDB                  |
@@ -17,9 +17,9 @@ Sistema web desarrollado en **PHP 8.1**, **MySQL**, **PDO** y **Bootstrap 5.3.8*
 
 ## Requisitos
 
-- PHP >= 8.1 con extensiones: `pdo`, `pdo_mysql`, `mbstring`
+- PHP >= 7.4 (compatible con PHP 8.0, 8.1, 8.2+) con extensiones: `pdo`, `pdo_mysql`, `mbstring`
 - MySQL >= 5.7 / MariaDB >= 10.4
-- Servidor web Apache con `mod_rewrite` habilitado (XAMPP, WAMP, Laragon)
+- Servidor web (Apache con `mod_rewrite` o Nginx)
 - Acceso a línea de comandos (opcional, para importar SQL)
 
 ---
@@ -117,9 +117,10 @@ gdb/
 │   ├── css/style.css    → Estilos personalizados
 │   ├── js/app.js        → Lógica de interfaz
 │   ├── uploads/         → Archivos subidos
-│   ├── .htaccess        → Rewrite rules
+│   ├── .htaccess        → Rewrite rules (para Apache)
 │   └── index.php        → Front Controller (router)
 ├── .env                 → Variables de entorno
+├── nginx-gdb.conf       → Configuración recomendada para Nginx + Cloudflare SSL
 └── README.md
 ```
 
@@ -168,6 +169,30 @@ gdb/
 - `session_regenerate_id()` al iniciar sesión
 - Control de acceso por rol en todos los controladores
 - `.htaccess` bloquea acceso a archivos sensibles
+
+---
+
+## Despliegue en Producción (Nginx)
+
+El proyecto incluye un archivo de configuración listo para producción en servidores Linux con Nginx (`nginx-gdb.conf`). Cuenta con redirección HTTP -> HTTPS y está optimizado para su uso con certificados SSL de Cloudflare.
+
+### Pasos para configurar Nginx:
+1. Copia el archivo `nginx-gdb.conf` a la carpeta de sitios disponibles de tu servidor:
+   ```bash
+   sudo cp nginx-gdb.conf /etc/nginx/sites-available/gdb.conf
+   ```
+2. Activa el sitio creando el enlace simbólico:
+   ```bash
+   sudo ln -s /etc/nginx/sites-available/gdb.conf /etc/nginx/sites-enabled/gdb.conf
+   ```
+3. Verifica la sintaxis de la configuración:
+   ```bash
+   sudo nginx -t
+   ```
+4. Si todo está bien, recarga Nginx:
+   ```bash
+   sudo systemctl reload nginx
+   ```
 
 ---
 

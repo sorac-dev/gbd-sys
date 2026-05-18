@@ -29,8 +29,11 @@ class Servicio
         return $stmt->fetchAll();
     }
 
-    /** Busca un servicio por ID. */
-    public function findById(int $id): array|false
+    /**
+     * Busca un servicio por ID.
+     * @return array|false
+     */
+    public function findById(int $id)
     {
         $stmt = $this->db->prepare('SELECT * FROM servicios WHERE id = :id LIMIT 1');
         $stmt->execute([':id' => $id]);

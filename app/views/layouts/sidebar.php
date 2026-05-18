@@ -6,7 +6,7 @@ $appUrl      = rtrim(getenv('APP_URL') ?: '', '/');
 $currentUrl  = $_GET['url'] ?? 'dashboard';
 
 function sidebarActive(string $prefix, string $current): string {
-    return str_starts_with($current, $prefix) ? 'active' : '';
+    return (strpos($current, $prefix) === 0) ? 'active' : '';
 }
 ?>
 <aside class="app-sidebar" id="appSidebar">
